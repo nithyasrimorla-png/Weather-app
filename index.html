@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #1E1E2F, #2C2C3F);
+    color: #FFFFFF;
+    text-align: center;
+    padding: 50px;
+}
+input, button {
+    padding: 10px;
+    font-size: 16px;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+}
+button {
+    background-color: #3498DB;
+    color: #fff;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #9B59B6;
+}
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+}
+        
+    </style>
+</head>
+<body>
+
+    <h1>Weather App</h1>
+    <input type="text" id="cityInput" placeholder="Enter city name">
+    <input type="text" id="countryInput" placeholder="Enter country code (optional, e.g., US)">
+    <button onclick="getWeather()">Get Weather</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function getWeather() {
+    const city = document.getElementById('cityInput').value.trim();
+    const country = document.getElementById('countryInput').value.trim();
+    const resultDiv = document.getElementById('result');
+
+    if (!city) {
+        resultDiv.innerHTML = "Please enter a city name!";
+        return;
+    }
+
+    let query = city;
+    if (country) query += ',' + country;
+
+    fetch(`http://127.0.0.1:5000/weather?city=${query}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // <-- Check what data is returned
+            if (data.error) {
+                resultDiv.innerHTML = "Error: " + data.error;
+            } else {
+                resultDiv.innerHTML = `
+                    <p><strong>City:</strong> ${data.city}</p>
+                    <p><strong>Temperature:</strong> ${data.temperature}°C</p>
+                    <p><strong>Min/Max:</strong> ${data.temp_min}°C / ${data.temp_max}°C</p>
+                    <p><strong>Description:</strong> ${data.description}</p>
+                    <img src="http://openweathermap.org/img/wn/${data.weather_icon}@2x.png" alt="icon">
+                    <p><strong>Humidity:</strong> ${data.humidity}%</p>
+                    <p><strong>Wind Speed:</strong> ${data.wind_speed} m/s</p>
+                `;
+            }
+        })
+        .catch(error => {
+            resultDiv.innerHTML = "Error fetching weather data.";
+            console.error(error);
+        });
+}
+    </script>
+
+</body>
+</html>
