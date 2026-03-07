@@ -5,7 +5,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)  # Enable CORS
 
-API_KEY = "YOUR_API_KEY"
+API_KEY = "7e5f26fc1052c5a37ddcc39ac8ad43eb"
 
 # ← Add the home route here
 @app.route("/")
