@@ -1,0 +1,8 @@
+<<<<<<< HEAD
+flask
+requests
+=======
+flask
+requests
+>>>>>>> fad3ac86022da8ce8934537c3ebc5474db75a392
+flask-cors
