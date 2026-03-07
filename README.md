@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Python Weather App
 This is a **full-stack Weather App** built using **Python Flask** and the **OpenWeatherMap API**.  
 Users can search for any city (and optional country code) to get **real-time weather information** including temperature, min/max temperature, humidity, wind speed, and weather icons.
