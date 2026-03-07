@@ -4,19 +4,20 @@ from flask_cors import CORS
 import os
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS
+CORS(app)  # Enable CORS for all routes
 
+# Read API key from environment variable
 API_KEY = os.environ.get("OPENWEATHER_API_KEY")
 
-# ← Add the home route here
+# Serve HTML page
 @app.route("/")
 def home():
-    return send_from_directory(".", "index.html")  # Serve your index.html page
+    return send_from_directory(".", "index.html")
 
-# Your existing weather route
-@app.route('/weather', methods=['GET'])
+# Weather API endpoint
+@app.route("/weather", methods=['GET'])
 def get_weather():
-    city = request.args.get('city')
+    city = request.args.get("city")
     if not city:
         return jsonify({"error": "Please provide a city name"}), 400
 
@@ -39,6 +40,6 @@ def get_weather():
 
     return jsonify(data)
 
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Required for Render
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
