@@ -1,11 +1,12 @@
 from flask import Flask, jsonify, request, send_from_directory
 import requests
 from flask_cors import CORS
+import os
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS
 
-API_KEY = "7e5f26fc1052c5a37ddcc39ac8ad43eb"
+API_KEY = os.environ.get("OPENWEATHER_API_KEY")
 
 # ← Add the home route here
 @app.route("/")
