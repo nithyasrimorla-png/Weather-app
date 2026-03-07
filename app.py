@@ -1,16 +1,21 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 import requests
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app)  # Enable CORS
 
-API_KEY = "7e5f26fc1052c5a37ddcc39ac8ad43eb"
+API_KEY = "YOUR_API_KEY"
 
+# ← Add the home route here
+@app.route("/")
+def home():
+    return send_from_directory(".", "index.html")  # Serve your index.html page
+
+# Your existing weather route
 @app.route('/weather', methods=['GET'])
 def get_weather():
     city = request.args.get('city')
-    
     if not city:
         return jsonify({"error": "Please provide a city name"}), 400
 
