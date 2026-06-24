@@ -94,7 +94,6 @@ python app.py
    - Description of weather
    - Humidity
    - Wind speed
->>>>>>> fad3ac86022da8ce8934537c3ebc5474db75a392
    - Weather icon
 
 # Live Demo after deploying 
